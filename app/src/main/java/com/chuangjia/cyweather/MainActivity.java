@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.address_add:
-                drawerLayout.setVisibility(View.VISIBLE);
+               drawerLayout.setVisibility(View.VISIBLE);
                Toast.makeText(this, "add_clicked", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "onClick: "+"add_clicked");
                 drawerLayout.openDrawer(GravityCompat.START);
@@ -191,5 +191,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return view1;
         }
     }
-
 }
