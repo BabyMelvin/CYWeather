@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -10,26 +10,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#aa8a8a8a"
+        android:background="#6ed4237a"
         android:paddingTop="10dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="40dp"
         android:paddingRight="40dp">
-        <ImageView
+        <ImageButton
             android:id="@+id/address_add"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
-            android:src="@drawable/add"/>
+            android:src="@drawable/add"
+            android:background="@drawable/selector_imagebutton"
+            />
         <LinearLayout
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:orientation="vertical"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/location"
+                android:id="@+id/tv_city_main"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:textSize="50sp"
@@ -37,17 +39,20 @@
                 android:drawableLeft="@drawable/location"
                 android:text="  上 海"/>
             <TextView
+                android:id="@+id/tv_country_main"
                 android:layout_centerInParent="true"
-                android:layout_alignBottom="@id/location"
+                android:layout_alignBottom="@id/tv_city_main"
                 android:paddingLeft="100dp"
                 android:textSize="30sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="徐汇"/>
-            <ImageView
+            <ImageButton
+                android:id="@+id/im_tab_down"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/tab_down"/>
+                android:layout_height="30dp"
+                android:src="@drawable/tab_down"
+                android:background="@drawable/selector_imagebutton"/>
         </LinearLayout>
 
         <ImageView
@@ -121,4 +126,17 @@
         >
     </android.support.v7.widget.RecyclerView>
     </LinearLayout>
-</LinearLayout>
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        >
+        <fragment
+            android:id="@+id/choose_area_fragment"
+            android:name="com.chuangjia.cyweather.ChooseAreaFragment"
+            android:layout_gravity="start"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </android.support.v4.widget.DrawerLayout>
+</FrameLayout>

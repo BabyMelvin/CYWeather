@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by Melvin on 2017/1/15.
+ *
  */
 
 class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder>{
