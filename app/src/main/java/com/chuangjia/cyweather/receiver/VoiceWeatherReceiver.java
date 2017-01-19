@@ -12,11 +12,18 @@ public class VoiceWeatherReceiver extends BroadcastReceiver {
     }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, final Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
         Intent intentView=new Intent(context,ShowWeatherFromVoice.class);
         //添加setFlags 避免堵塞起不来
         intentView.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intentView);
+       /* new Thread(new Runnable() {
+            @Override
+            public void run() {
+                showDialogAboutWeather(context,intent);
+            }
+        }).start();*/
     }
+
 }
