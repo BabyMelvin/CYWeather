@@ -9,6 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.chuangjia.cyweather.json.WeatherContent;
+import com.chuangjia.cyweather.utils.Utility;
 
 /**
  * Created by Melvin on 2017/1/18.
@@ -35,6 +39,14 @@ public class ShowWeatherFromVoice extends AppCompatActivity implements View.OnCl
         }
     };
     private TimerDialog mTimer;
+    private WeatherContent weatherContent;
+    private TextView dataVoice;
+    private TextView locationVoice;
+    private TextView weatherVoice;
+    private TextView temperatureVoice;
+    private TextView directionVoice;
+    private TextView powerVoice;
+    private ImageButton imageButtonWeather1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,21 +65,17 @@ public class ShowWeatherFromVoice extends AppCompatActivity implements View.OnCl
         }
     }
     class TimerDialog extends Thread {
-        public boolean run=true;
-        public void stopThread(){
-            run=false;
-        }
         @Override
         public void run() {
             try {
-                Thread.sleep(5000);
-                    Message message=new Message();
-                    message.what=TIMEOUT;
+                    Thread.sleep(5000);
+                    Message message = new Message();
+                    message.what = TIMEOUT;
                     handler.sendMessage(message);
-                    Log.d(TAG, "run: "+"    thread run"+run);
-
+                    Log.d(TAG, "run: " + "    thread run" );
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                Log.d(TAG, "run: "+"interrupted");
             }
         }
     }
@@ -79,19 +87,47 @@ public class ShowWeatherFromVoice extends AppCompatActivity implements View.OnCl
     }
 
     private void initView() {
+        //获得语音遥控信息，并解析内容
+        Intent intent=getIntent();
+        String getContentVoice =intent.getStringExtra("voiceWeather");
+        //Log.d(TAG, "initView: "+getContentVoice);
+        weatherContent = Utility.handleContentFromVoice(getContentVoice);
+        Log.d(TAG, "initView: "+ weatherContent.resultS);
+        //
         imageButtonHint = (ImageButton) findViewById(R.id.ib_hint_voice);
         imageButtonWeather = (ImageButton) findViewById(R.id.iv_weather_voice);
+        locationVoice = (TextView) findViewById(R.id.tv_location_voice);
+        temperatureVoice = (TextView) findViewById(R.id.tv_temperature_voice);
+        dataVoice = (TextView) findViewById(R.id.tv_data_voice);
+        weatherVoice = (TextView) findViewById(R.id.tv_weather_voice);
+        directionVoice = (TextView) findViewById(R.id.tv_direction_voice);
+        powerVoice = (TextView) findViewById(R.id.tv_power_voice);
+        imageButtonWeather1 = (ImageButton) findViewById(R.id.iv_weather_voice);
+        imageButtonWeather.setImageResource(Utility.getDrawableByName(weatherContent.answer.content.descriptionS));
+        directionVoice.setText(weatherContent.answer.content.windDir);
+        powerVoice.setText(weatherContent.answer.content.windPower);
+        weatherVoice.setText(weatherContent.answer.content.descriptionS);
+        dataVoice.setText(weatherContent.answer.content.dateS);
+        locationVoice.setText(weatherContent.answer.content.loactionS);
+        temperatureVoice.setText(weatherContent.answer.content.temperatureL+"°"+"~"+weatherContent.answer.content.tempeatureH+"°");
+
     }
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()){
             case R.id.ib_hint_voice:
                 Log.d(TAG, "onClick: "+ mLinearLayoutHintVisibleStatue);
                 if(mLinearLayoutHintVisibleStatue ==false){
                     mViewStatus=View.VISIBLE;
+                    mTimer.interrupt();
                 }else{
                     mViewStatus=View.INVISIBLE;
+                    if(mTimer==null) {
+                        mTimer=new TimerDialog();
+                    }
+                   // mTimer.start();
                 }
                 if(linearLayoutHint==null){
                     linearLayoutHint = (LinearLayout) findViewById(R.id.ly_hint_voice);

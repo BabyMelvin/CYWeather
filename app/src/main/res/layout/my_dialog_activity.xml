@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="28sp"
-                android:text="周五"/>
+                android:text="今天"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -58,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/location"/>
             <TextView
+                android:id="@+id/tv_location_voice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorWhite"
@@ -94,6 +95,7 @@
                     android:textColor="@color/colorWhite"
                     android:text="晴"/>
                 <TextView
+                    android:id="@+id/tv_temperature_voice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
@@ -108,12 +110,14 @@
                 android:orientation="vertical"
                 android:padding="40dp">
                 <TextView
+                    android:id="@+id/tv_direction_voice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
                     android:textSize="26sp"
                     android:text="东风"/>
                 <TextView
+                    android:id="@+id/tv_power_voice"
                     android:paddingTop="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

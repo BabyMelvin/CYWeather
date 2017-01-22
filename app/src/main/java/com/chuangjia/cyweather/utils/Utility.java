@@ -2,10 +2,12 @@ package com.chuangjia.cyweather.utils;
 
 import android.text.TextUtils;
 
+import com.chuangjia.cyweather.R;
 import com.chuangjia.cyweather.Weather;
 import com.chuangjia.cyweather.db.City;
 import com.chuangjia.cyweather.db.County;
 import com.chuangjia.cyweather.db.Province;
+import com.chuangjia.cyweather.json.WeatherContent;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -22,6 +24,7 @@ public class Utility {
     /**
      * 解析和处理服务器返回的省级数据
      */
+    private static final String TAG = "Utility";
     public static boolean handleProvinceResponse(String response) {
         if (!TextUtils.isEmpty(response)) {
             try {
@@ -102,5 +105,66 @@ public class Utility {
         return null;
 
     }
-
+    public static WeatherContent handleContentFromVoice(String response){
+        try {
+            Gson gson=new Gson();
+           // JSONObject jsonObject = new JSONObject(response);
+          //  JSONArray jsonArray = jsonObject.getJSONArray("answer");
+          //  String voiceContent = jsonArray.getJSONObject(0).toString();
+            return gson.fromJson(response, WeatherContent.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static int getDrawableByName(String name){
+        int RID=0;
+        switch (name){
+            case "多云":
+                RID= R.drawable.cloudy;
+                break;
+            case "晴":
+                RID= R.drawable.fine;
+                break;
+            case "暴雨":
+                RID= R.drawable.rainstorm;
+                break;
+            case "暴雪":
+                RID= R.drawable.snowstorm;
+                break;
+            case "冰雹":
+                RID= R.drawable.hail;
+                break;
+            case "雷电":
+                RID= R.drawable.thunder;
+                break;
+            case "小雪":
+                RID= R.drawable.tinysnow;
+                break;
+            case "小雨":
+                RID= R.drawable.sprinkle;
+                break;
+            case "阴":
+                RID= R.drawable.shade;
+                break;
+            case "雨雪":
+                RID= R.drawable.sleet;
+                break;
+            case "阵雪":
+                RID= R.drawable.flurrysonw;
+                break;
+            case "阵雨":
+               RID = R.drawable.showerrain;
+                break;
+            case "中雪":
+               RID= R.drawable.moderatesnow;
+                break;
+            case "中雨":
+                RID=R.drawable.moderaterain;
+                break;
+            default:
+                break;
+        }
+        return RID;
+    }
 }
